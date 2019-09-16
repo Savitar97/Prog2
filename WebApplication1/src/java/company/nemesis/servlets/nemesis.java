@@ -22,13 +22,11 @@ public class nemesis extends HttpServlet {
    @Override
 public void doGet(HttpServletRequest request, HttpServletResponse response)
 throws ServletException, IOException {
-String valtozo = request.getParameter("text");
-byte[] bytes = valtozo.getBytes();
+   
+String bemenet = request.getParameter("text");
+byte[] bytes = bemenet.getBytes();
 LZWBinFa binFa = new LZWBinFa();
-java.io.PrintWriter kiFile =
-new java.io.PrintWriter(
-new java.io.BufferedWriter(
-new java.io.FileWriter("output.txt")));
+java.io.PrintWriter kiFile =new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.FileWriter("output.txt")));
 
 boolean kommentben = false;
 for(int j = 0; j < bytes.length; ++j) {
@@ -58,24 +56,25 @@ binFa.egyBitFeldolg('0');
 bytes[j] <<= 1;
 }
 }
+   
+   
 binFa.kiir(kiFile);
 kiFile.println("depth = " + binFa.getMelyseg());
 kiFile.println("mean = " + binFa.getAtlag());
 kiFile.println("var = " + binFa.getSzoras());
 kiFile.close();
 File file = new File("output.txt");
-FileInputStream fis = new FileInputStream(file);
+FileInputStream finstream = new FileInputStream(file);
+   
+   
 // Set response content type
 response.setContentType("text/html");
 PrintWriter out = response.getWriter();
-String title = "Using GET Method to Read Form Data";
-String docType =
-"<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
 out.println("<html>");
 out.println("<head><title>BinfaServlet</title></head>");
 out.println("<body>");
 out.println("<h1>Binfa</h1>");
-try(BufferedReader br = new BufferedReader(new InputStreamReader(fis))) {
+try(BufferedReader br = new BufferedReader(new InputStreamReader(finstream))) {
 for(String line; (line = br.readLine()) != null; ) {
 out.println("<p>" + line + "</p>");
 }
