@@ -58,6 +58,7 @@ public class PiBBP {
         }
         
         d16PiHexaJegyek = sb.toString();
+        System.out.println("S1:"+d16S1t+" "+"S2:"+d16S4t+" "+"S3:"+d16S5t+" "+"S4:"+d16S6t);
     }
     /**
      * BBP algoritmus a Pi-hez, a [BBP ALGORITMUS] David H. Bailey: The
@@ -125,7 +126,10 @@ public class PiBBP {
         return d16PiHexaJegyek;
     }
     /** Példányosít egy BBP algoritmust implementáló obektumot.*/
-    public static void main(String args[]) {        
-        System.out.println(new PiBBP(0));
+    public static void main(String args[]) {
+    for (int i=0;i<24 ;i++ ) {
+           System.out.println(new PiBBP(1000000+i));    
+           }       
+        
     }
 }
