@@ -38,9 +38,10 @@ public class PiBBP {
         double d16S6t = d16Sj(d, 6);
         
         d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
-        
+        System.out.println("d16Pi értéke:"+d16Pi);
+        System.out.println("Kerekitve:"+StrictMath.floor(d16Pi));
         d16Pi = d16Pi - StrictMath.floor(d16Pi);
-        
+        System.out.println("Eredmény:"+d16Pi);
         StringBuffer sb = new StringBuffer();
         
         Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
