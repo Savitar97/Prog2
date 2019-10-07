@@ -1,0 +1,366 @@
+\documentclass[a1paper,10pt, svgnames]{article}
+\usepackage{tikz-uml}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tkz-graph}
+\usepackage{syntax}
+\usepackage{underscore}
+\usepackage{tikz}
+
+\usetikzlibrary{positioning}
+
+\textwidth 18.5cm
+\textheight 25.5cm
+\hoffset=-2.9cm
+\voffset=-2.9cm
+
+\sloppy
+\hyphenpenalty 10000000
+
+\lstdefinelanguage{tikzuml}{language=[LaTeX]TeX, classoffset=0, morekeywords={umlbasiccomponent, umlprovidedinterface, umlrequiredinterface, umldelegateconnector, umlassemblyconnector, umlVHVassemblyconnector, umlHVHassemblyconnector, umlnote, umlusecase, umlactor, umlinherit, umlassoc, umlVHextend, umlinclude, umlstateinitial, umlbasicstate, umltrans, umlstatefinal, umlVHtrans, umlHVtrans, umldatabase, umlmulti, umlobject, umlfpart, umlcreatecall, umlclass, umlvirt, umlunicompo, umlimport, umlaggreg}, keywordstyle=\color{DarkBlue}, classoffset=1, morekeywords={umlcomponent, umlsystem, umlstate, umlseqdiag, umlcall, umlcallself, umlfragment, umlpackage}, keywordstyle=\color{DarkRed}, classoffset=0,  sensitive=true, morecomment=[l]{\%}}
+
+
+\begin{document}
+
+\title{UML Diagramm}
+\author{Attila Tóth}
+
+\maketitle
+
+
+
+\section{Introduction}
+OOCW UML Diagramm
+
+\begin{center}
+\begin{tikzpicture}
+\begin{umlpackage}{p}
+
+\begin{umlpackage}{robocar}
+
+\umlclass[type=enumeration,scale=.5,x=+5]{CarType}{
+  NORMAL\\
+  POLICE\\
+  GANGSTER\\
+  CAUGHT
+}
+{}
+
+\umlclass[y=-4,scale=.5,x=+5]{Car}{
+  \#traffic : Traffic\&\\
+  \#m_type : CarType\\
+  \#m_from : unsigned_object_id_type = {3130863972}\\
+  \#m_to : unsigned_object_id_type = {0}\\
+  \#m_step : unsigned_object_id_type = {0}
+}
+{
+ +Car(traffic : Traffic\&, type : CarType)\\
+ +init() : void\\
+ +step() : void\\
+ +from() : unsigned_object_id_type\\
+ +to() : unsigned_object_id_type\\
+ +get_step() : unsigned_object_id_type\\
+ +get_type() : CarType\\
+ +set_type(type : CarType) : void\\
+ +to_node() : unsigned_object_id_type\\
+ +get_max_steps() : unsigned_object_id_type\\
+ +nextEdge() : void\\
+ +nextSmarterEdge() : void\\
+ +print(os : ostream\&) : void
+
+}
+
+\umlclass[scale=.5,y=-3]{AntCar}
+{
+	+alist : AdjacencyList\\
+	+alist_evaporate : AdjacencyList\\
+	-rnd : bool = {true}\\
+}
+{
+	+AntCar(traffic : Traffic\&)\\
+	+nextSmarterEdge() : void\\
+	+print(os : ostream\&) : void\\
+	+ant() : unsigned_object_id_type\\
+	+ant_rnd() : unsigned_object_id_type\\
+	+ant_rernd() : unsigned_object_id_type\\
+	+ant_mrernd() : unsigned_object_id_type
+}
+
+\umlclass[scale=.5,x=+5,y=-8]{SmartCar}
+{
+	-m_guided : bool = {false}\\
+	-m_routed : bool = {false}\\
+	-route : vector<unsigned int>\\
+}
+{
+	+SmartCar(traffic : Traffic\&, type : CarType, guided : bool)\\
+	+step() : void\\
+	+init() : void\\
+	+print(os : ostream\&) : void\\
+	+get_guided() : bool\\
+	+set_route(route : vector<unsigned int>\&) : bool\\
+	+nextEdge() : void\\
+	+nextGuidedEdge() : void\\
+	+set_fromto(from : unsigned int, to : unsigned int) : bool
+}
+\umlclass[scale=.25,x=+12,y=-4]{Traffic}
+{
+	\#segment : boost.interprocess.managed_shared_memory*\\
+	\#shm_map : boost.interprocess.offset_ptr<shm_map_Type>\\
+	\#m_delay : int = {200}\\
+	\#m_run : bool = {true}\
+	\#m_catchdist : double = {15.5}\\
+	-m_size : int = {10000}\\
+	-m_time : int = {0}\\
+	-m_minutes : int = {10}\\
+	-m_mutex : mutex\\
+	-m_cv : condition_variable\\
+	-m_thread : thread = {\&Traffic::processes, this}\\
+	-cars : vector<shared_ptr<Car>>\\
+	-m_smart_cars : vector<shared_ptr<SmartCar>>\\
+	-m_cop_cars : vector<shared_ptr<CopCar>>\\
+	-m_smart_cars_map : map<int, shared_ptr<SmartCar>>\\
+	-cars_mutex : mutex\\
+	-m_type : TrafficType\\
+	-logFile : fstream*\\
+	-logfile : string
+
+}
+{
+	+Traffic(size : int, shm_segment : char const*, catchdist : double, type : TrafficType, minutes : int = 10)\\
+	+\~{}Traffic()\\
+	+processes() : void\\
+	+get_title(name : string) : string\\
+	+node() : unsigned_object_id_type\\
+	+traffic_run() : void\\
+	+steps() : void\\
+	+pursuit() : void\\
+	+nedges(from : unsigned_object_id_type) : size_t\\
+	+alist(from : unsigned_object_id_type, to : int) : unsigned_object_id_type\\
+	+alist_inv(from : unsigned_object_id_type, to : unsigned_object_id_type) : int\\
+	+salist(from : unsigned_object_id_type, to : int) : unsigned_object_id_type\\
+	+set_salist(from : unsigned_object_id_type, to : int, value : unsigned_object_id_type) : void\\
+	+palist(from : unsigned_object_id_type, to : int) : unsigned_object_id_type\\
+	+hasNode(node : unsigned_object_id_type) : bool\\
+	+start_server(io_service : boost.asio.io_service\&, port : unsigned short) : void\\
+	+cmd_session(sock : boost.asio.ip.tcp.socket) : void\\
+	+naive_node_for_nearest_gangster(from : unsigned_object_id_type, to : unsigned_object_id_type, step : unsigned_object_id_type) : unsigned_object_id_type\\
+	+dst(n1 : unsigned_object_id_type, n2 : unsigned_object_id_type) : double\\
+	+dst(lon1 : double, lat1 : double, lon2 : double, lat2 : double) : double\\
+	+toGPS(from : unsigned_object_id_type, to : unsigned_object_id_type, step : unsigned_object_id_type, lo : double*, la : double*) : void\\
+	+naive_nearest_gangster(from : unsigned_object_id_type, to : unsigned_object_id_type, step : unsigned_object_id_type) : unsigned_object_id_type\\
+	+get_type() : TrafficType\\
+	+get_time() : int\\
+	-addCop(cl : CarLexer\&) : int\\
+	-addGangster(cl : CarLexer\&) : int
+
+}
+\umlclass[type=enumerator,scale=.5,x=+10,y=-8]{TrafficType}
+{
+	NORMAL\\
+	ANT\\
+	ANT_RND\\
+	ANT_RERND\\
+	ANT_MRERND
+}
+{
+	
+}
+\umlclass[scale=.5,x=+5,y=-11]{CopCar}
+{
+	\#m_num_captured_gangsters : int = {0}\\
+	\#m_name : string\\
+}
+{
+	+CopCar(traffic : Traffic\&, guided : bool, name : char const*)\\
+	+print(os : ostream\&) : void\\
+	+get_name() : string\\
+	+get_num_captured_gangsters() : int\\
+	+captured_gangster() : void
+}
+
+\umlclass[scale=.5,y=-8]{CarLexer}
+{
+	-m_cmd : int = {0}\\
+	-name : char[128]\\
+	-num : int = {0}\\
+	-role : char\\
+	-m_errnumber : int = {0}\\
+	-m_guided : bool = {false}\\
+	-route : vector<unsigned int>\\
+	-m_id : int = {0}\\
+	-from : unsigned int = {0u}\\
+	-to : unsigned int = {0u}\\
+}
+{
+	+yylex() : int\\
+	+get_name() : char *\\
+	+get_role() : char\\
+	+get_num() : int\\
+	+get_errnumber() : int\\
+	+get_guided() : bool\\
+	+get_cmd() : int\\
+	+get_id() : int\\
+	+get_route() : vector<unsigned int> \&\\
+	+get_from() : unsigned int\\
+	+get_to() : unsigned int
+}
+
+\umlclass[scale=.3]{SmartCity}
+{
+	\#segment : boost.interprocess.managed_shared_memory*\\
+	\#shm_map : boost.interprocess.offset_ptr<shm_map_Type>\\
+	\#m_delay : int = {5000}\\
+	\#m_run : bool = {true}\\
+	-m_mutex : std.mutex\\
+	-m_cv : std.condition_variable\\
+	-m_thread : std.thread = {\&SmartCity::processes, this}\\
+	-m_waynode_locations : WaynodeLocations\\
+	-m_busWayNodesMap : WayNodesMap\\
+	-m_way2nodes : Way2Nodes\\
+	-m_way2name : WayNames\\
+	-m_remover : SmartCity.shm_remove*
+}
+{
++SmartCity(osm_file : char const*, shm_segment : char const*, map_file : char const*, mode : int)\\
++SmartCity(osm_file : char const*, shm_segment : char const*)\\
++\~{}SmartCity()\\
++node2way(node : unsigned_object_id_type) : std.string\\
++processes() : void\\
++city_run() : void\\
++busWayLength(verbose : bool) : double
+	
+}
+
+\umlclass[scale=.25,x=+12,y=-11]{OSMReader}
+{
+	+onewayc : int = {0}\\
+	+onewayf : int = {false}\\
+	\#vert : Vertices\\
+	\#nOSM_nodes : int = {0}\\
+	\#nOSM_ways : int = {0}\\
+	\#nOSM_relations : int = {0}\\
+	\#sum_unique_highhway_nodes : int = {0}\\
+	\#sum_highhway_nodes : int = {0}\\
+	\#sum_highhway_length : int = {0}\\
+	\#edge_multiplicity : int = 0\\
+	\#nbuses : int = {0}\\
+	\#max_edge_length : double = {0.0}\\
+	\#mean_edge_length : double = {0.0}\\
+	\#cedges : int = {0}\\
+	\#locations : OSMLocations\\
+	-m_estimator : std.size_t = {0u}\\
+	-alist : AdjacencyList\&\\
+	-palist : AdjacencyList\&\\
+	-waynode_locations : WaynodeLocations\&\\
+	-busWayNodesMap : WayNodesMap\&\\
+	-way2nodes : Way2Nodes\&\\
+	-way2name : WayNames\&\\
+}
+{
+	+OSMReader(osm_file : char const*, alist : AdjacencyList\&, palist : AdjacencyList\&, waynode_locations : WaynodeLocations\&, busWayNodesMap : WayNodesMap\&, way2nodes : Way2Nodes\&, way2name : WayNames\&)\\
+	+\~{}OSMReader()\\
+	+get_estimated_memory() : std.size_t\\
+	+edge(v1 : unsigned_object_id_type, v2 : unsigned_object_id_type) : bool\\
+	+node(node : Node\&) : void\\
+	+way(way : Way\&) : void\\
+	+relation(rel : Relation\&) : void\\
+	-distance(vertexa : unsigned_object_id_type, vertexb : unsigned_object_id_type) : double\\
+}
+
+\umluniaggreg {AntCar}{Car}
+\umluniaggreg{SmartCar}{Car}
+\umluniaggreg{CopCar}{SmartCar}
+\umlassoc{CarType}{Car}
+\umlassoc{Traffic}{TrafficType}
+\umlassoc{Traffic}{Car}
+\end{umlpackage}
+
+\begin{umlpackage}[x=0,y=-17]{sampleclient}
+
+\umlclass[scale=0.4,y=+2,x=+7]{MyShmClient}{
+  \#nr_graph : NodeRefGraph*\\
+  \#m_teamname : string\\
+  -nr2v : map<unsigned_object_id_type, NRGVertex>\\
+}
+{
+	+MyShmClient(shm_segment : char const*, teamname : string)\\
+	+\~{}MyShmClient()\\
+	+start(io_service : io_service\&, port : char const*) : void\\
+	+start10(io_service : io_service\&, port : char const*) : void\\
+	+num_vertices(sum_edges : int\&) : int\\
+	+print_edges(more : unsigned) : void\\
+	+print_vertices(more : unsigned) : void\\
+	+bgl_graph() : NodeRefGraph *\\
+	+hasDijkstraPath(from : unsigned_object_id_type, to : unsigned_object_id_type) : vector<unsigned_object_id_type>\\
+	+hasBellmanFordPath(from : unsigned_object_id_type, to : unsigned_object_id_type) : vector<unsigned_object_id_type>\\
+	-foo() : void\\
+	-init(socket : socket\&) : int\\
+	-gangsters(socket : socket\&, id : int, cop : unsigned_object_id_type) : vector<Gangster>\\
+	-initcops(socket : socket\&) : vector<Cop>\\
+	-pos(socket : socket\&, id : int) : void\\
+	-car(socket : socket\&, id : int, f : unsigned*, t : unsigned*, s : unsigned*) : void\\
+	-route(socket : socket\&, id : int, unnamed_1 : vector<unsigned_object_id_type>\&) : void
+}
+
+
+\umlclass[x=+7,scale=0.4,y=-3]{ShmClient}{
+  \# shm_map : offset_ptr<shm_map_Type>\\
+  - segment : managed_shared_memory*
+}
+{
+ +ShmClient(shm_segment : char const*)\\
+ +\~{}ShmClient()\\
+ +start(io_service : io_service\&, port : char const*) : void\\
+ +get_random_node() : unsigned_object_id_type\\
+ +num_edges(from : unsigned_object_id_type) : size_t\\
+ +alist(from : unsigned_object_id_type, to : int) : unsigned_object_id_type\\
+ +alist_inv(from : unsigned_object_id_type, to : unsigned_object_id_type) : int\\
+ +salist(from : unsigned_object_id_type, to : int) : unsigned_object_id_type\\
+ +set_salist(from : unsigned_object_id_type, to : int, value : unsigned_object_id_type) : void\\
+ +palist(from : unsigned_object_id_type, to : int) : unsigned_object_id_type\\
+ +hasNode(node : unsigned_object_id_type) : bool\\
+ +dst(n1 : unsigned_object_id_type, n2 : unsigned_object_id_type) : double\\
+ +dst(lon1 : double, lat1 : double, lon2 : double, lat2 : double) : double\\
+ +toGPS(from : unsigned_object_id_type, lo : double*, la : double*) : void\\
+ +toGPS(from : unsigned_object_id_type, to : unsigned_object_id_type, step : unsigned_object_id_type, lo : double*, la : double*) : void\\
+ -foo() : void\\
+ -init(socket : socket\&) : int\\
+ -gangsters(socket : socket\&, id : int) : void\\
+ -pos(socket : socket\&, id : int) : void\\
+ -car(socket : socket\&, id : int, f : unsigned*, t : unsigned*, s : unsigned*) : void\\
+ -route1(socket : socket\&, id : int) : void\\
+ -route2(socket : socket\&, id : int) : void\\
+
+
+}
+
+
+\umlclass[type=struct,y=-2]{SmartCar}{
+  +id: int\\
+  +from: unsigned\\
+  +to: unsigned\\
+  +step: int
+}
+
+\umlemptyclass[type=typedeff,x=+14,y=+2]{Cop}
+
+\umlemptyclass[type=typedeff,y=+2]{Gangster}
+
+\umlnest {MyShmClient}{SmartCar}
+\umlnest {MyShmClient}{Gangster}
+\umlnest {MyShmClient}{Cop}
+\umlaggreg {ShmClient}{MyShmClient}
+\end{umlpackage} 
+
+\end{umlpackage}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+\end{document}
