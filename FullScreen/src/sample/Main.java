@@ -12,7 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.embed.swing.JFXPanel;
+
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -43,9 +44,9 @@ public class Main extends Application {
 
 
         //Music
-        Media media = new Media("file:/home/nemesis/IdeaProjects/FullScreen/supa.mp3"); //replace /Movies/test.mp3 with your file
+        Media media=new Media(new File("/home/nemesis/IdeaProjects/FullScreen/src/supa.mp3").toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
-        player.play();
+
 
         // Button
         Button Start = new Button("Start");
@@ -116,7 +117,9 @@ public class Main extends Application {
                 counter++;
                 if(counter%2==0) {
                     iv.setImage(img1);
+                    player.play();
                     alert.showAndWait();
+
                 }
                 else {
                     iv.setImage(img);

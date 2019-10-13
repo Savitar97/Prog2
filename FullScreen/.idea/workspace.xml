@@ -83,14 +83,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Asztal/javafx-swing-11-linux.jar!/" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Asztal/javafx-sdk-13/lib/javafx.web.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.excludes" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -126,7 +126,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="FullScreen" />
-      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/Asztal/openjfx-11.0.2_linux-x64_bin-sdk/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,java.desktop" />
+      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/Asztal/javafx-sdk-13/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,java.desktop" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -229,6 +229,8 @@
       <workItem from="1570719973969" duration="1833000" />
       <workItem from="1570827950446" duration="10469000" />
       <workItem from="1570963593201" duration="735000" />
+      <workItem from="1570964405729" duration="20000" />
+      <workItem from="1570964616272" duration="2340000" />
     </task>
     <servers />
   </component>
