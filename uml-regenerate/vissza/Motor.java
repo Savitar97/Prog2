@@ -1,0 +1,5 @@
+interface Motor {
+
+	void uzemanyag();
+
+}
