@@ -1,12 +1,15 @@
 import java.io.*;
 import java.util.*;
+
+
 class Lexer{
 	private String text;
-
 	public Lexer(String text)
 	{
 		this.text=text.toLowerCase();
 	}
+ 
+	
 
 	private String[][] lexer=
 	{
@@ -17,7 +20,7 @@ class Lexer{
 		{"Σ", "Œ", "3", "3"},//e
 		{"╒", "|=", "£", "|#"},//f
 		{"g", "6", "[", "[+"},//g
-		{"♓", "4", "|-|", "[-]"}//h,
+		{"♓", "4", "|-|", "[-]"},//h
 		{"1", "1", "|", "!"},//i
 		{"⌡", "7", "_|", "_/"},//j
 		{"k", "|<", "1<", "|{"},//k
@@ -153,5 +156,7 @@ public static void main(String[] args) {
 	    System.out.println(lex.Lextext());
 	    System.out.println();
 	   	}
+	   	
+	   	
 }
 }

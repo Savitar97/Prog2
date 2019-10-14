@@ -43,9 +43,8 @@ public class Main extends Application {
         alert.setContentText("Ohhh nooo! You hacked the NASA!");
 
 
-        //Music
-        Media media=new Media(new File("/home/nemesis/IdeaProjects/FullScreen/src/supa.mp3").toURI().toString());
-        MediaPlayer player = new MediaPlayer(media);
+
+
 
 
         // Button
@@ -115,6 +114,9 @@ public class Main extends Application {
         Start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 counter++;
+                //Music
+                Media media=new Media(new File("/home/nemesis/IdeaProjects/FullScreen/src/supa.mp3").toURI().toString());
+                MediaPlayer player = new MediaPlayer(media);
                 if(counter%2==0) {
                     iv.setImage(img1);
                     player.play();
