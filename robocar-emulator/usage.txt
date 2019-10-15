@@ -1,0 +1,9 @@
+inside rcwin: java -jar target/site/justine-rcwin-0.0.16-jar-with-dependencies.jar ../lmap.txt
+
+inside rcemu: src/smartcity --node2gps=../lmap.txt
+	      src/traffic 
+
+Extras:
+src/samplemyshmclient --team=Police
+(sleep 1; echo "<init Norbi 100 g>"; sleep 1)|telnet localhost 10007
+
