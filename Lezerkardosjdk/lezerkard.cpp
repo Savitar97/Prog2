@@ -14,24 +14,25 @@
 using namespace std;
 using namespace boost::filesystem;
 
-std::vector<path> v;
 static int counter=0;
-
 void read_acts ( boost::filesystem::path path )
 {
-
+    
         if ( is_regular_file ( path ) ) {
 
                 std::string ext ( ".java" );
                 if ( !ext.compare ( boost::filesystem::extension ( path ) ) ) {
-                counter++;    
-				v.push_back(path); 
+                   counter++;
+                   cout << "      " << path.filename() << '\n';
+                
+
                    
                 }
 
         } else if ( is_directory ( path ) )
-                for ( boost::filesystem::directory_entry & entry : boost::filesystem::directory_iterator ( path ) )
+                for ( boost::filesystem::directory_entry & entry : boost::filesystem::directory_iterator ( path ) ){
                         read_acts ( entry.path());
+                    }
 
 }
 
@@ -48,23 +49,15 @@ int main(int argc, char* argv[])
 if (is_directory(p))
      {
         cout << p << " is a directory containing:\n";
-        
-        for (auto&& x : directory_iterator(p))
-        { 
-          read_acts(x);
-        }
-
-        std::sort(v.begin(), v.end());  
-
-        for (auto&& x : v)
-          cout << "    " << x.filename() << '\n';
+        read_acts(p);
+                
      }
      else
      {
-     	cout<<"Nem mappát adtál meg"<<endl;
+      cout<<"Nem mappát adtál meg"<<endl;
+      return 2;
      }
      cout<<counter<<endl;
-      
 
 
   return 0;
