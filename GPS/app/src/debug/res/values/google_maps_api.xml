@@ -1,0 +1,5 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+   
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">API KEY</string>
+
+</resources>
