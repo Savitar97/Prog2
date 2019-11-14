@@ -38,10 +38,12 @@ public aspect Aspect
 	
     after(LZWBinFa.Csomopont n, PrintWriter os) : meghiv(n, os)
     {   
+        
 
         try{
-        
-        inOrder(n,new PrintWriter("inorder.txt"));
+        os=new PrintWriter("preorder.txt");
+        preOrder(n,os);
+        os.flush();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -49,18 +51,20 @@ public aspect Aspect
         
     	depth = 0;
         try{
-        
-    	postOrder(n,new PrintWriter("postorder.txt"));
+        os=new PrintWriter("postorder.txt");
+    	postOrder(n,os);
+        os.flush();
         
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        
 
     }
     
     
-    public void inOrder(LZWBinFa.Csomopont n, PrintWriter p) 
+    public void preOrder(LZWBinFa.Csomopont n, PrintWriter p) 
     {
 
     	if (n != null)
@@ -70,8 +74,8 @@ public aspect Aspect
             for (int i = 0; i < depth; ++i)
             p.print("---");
             p.print(n.getBetu () + "(" + depth + ")\n");
-            inOrder (n.getBalNulla (), p);
-            inOrder (n.getJobbEgy (), p);
+            preOrder (n.getBalNulla (), p);
+            preOrder (n.getJobbEgy (), p);
             --depth;
         }
     }
