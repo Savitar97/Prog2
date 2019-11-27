@@ -27,7 +27,7 @@
  */
 
 #include "BrainBWin.h"
-
+#include <QMessageBox>
 const QString BrainBWin::appName = "NEMESPOR BrainB Test";
 const QString BrainBWin::appVersion = "6.0.3";
 
@@ -179,11 +179,27 @@ void BrainBWin::keyPressEvent ( QKeyEvent *event )
                 brainBThread->pause();
                 takepicture(brainBThread->getT());
         } else if ( event->key() == Qt::Key_Q ||  event->key() == Qt::Key_Escape ) {
+                
+                QMessageBox msgBox;
+                msgBox.setText("Kilépés");
+                msgBox.setInformativeText("Biztosan kiakar lépni?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int ret = msgBox.exec();
+                switch (ret) {
+                case QMessageBox::Yes:
                 close();
+                break;
+                case QMessageBox::Cancel:
+                // Cancel was clicked
+                break;
+                default:
+                // should never be reached
+                break;
+        }
         }
         else if(event->key() == Qt::Key_Space){
             brainBThread->set_color();
-            brainBThread->set_color1();
             brainBThread->doStuff();
         }
 
