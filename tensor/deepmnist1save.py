@@ -157,8 +157,8 @@ def main(_):
 
     print('test accuracy %g' % accuracy.eval(feed_dict={
         x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
-    if i % 100 == 0:
-      saver.save(sess, "./model/model.ckpt")
+    
+    saver.save(sess, "./model/model.ckpt")
     img = readimg()
     image = img.eval()
     image = image.reshape(28*28)

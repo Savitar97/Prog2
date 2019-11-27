@@ -19,7 +19,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot
-
+import os.path
 FLAGS = None
 
 
@@ -142,10 +142,8 @@ def main(_):
   print('Saving graph to: %s' % graph_location)
   train_writer = tf.summary.FileWriter(graph_location)
   train_writer.add_graph(tf.get_default_graph())
-
-  with tf.Session() as sess:
-    saver = tf.train.Saver()
-    saver.restore(sess, "./model/model.ckpt")
+  
+  with tf.Session() as sess: 
     sess.run(tf.global_variables_initializer())
     for i in range(20000):
       batch = mnist.train.next_batch(50)
@@ -157,8 +155,6 @@ def main(_):
 
     print('test accuracy %g' % accuracy.eval(feed_dict={
         x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
-    if i % 100 == 0:
-      saver.save(sess, "./model/model.ckpt")
     img = readimg()
     image = img.eval()
     image = image.reshape(28*28)
