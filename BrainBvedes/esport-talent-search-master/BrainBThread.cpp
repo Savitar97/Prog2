@@ -135,4 +135,14 @@ void BrainBThread::set_color()
     
 }
 
+void BrainBThread::set_color1()
+{
+             
+            double r=std::rand()%255;
+            double g=std::rand()%255;
+            double b=std::rand()%255;
+            cv::Scalar newCenter { r, g, b };
+            cCenter=newCenter;
+
+}
 

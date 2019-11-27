@@ -183,6 +183,7 @@ void BrainBWin::keyPressEvent ( QKeyEvent *event )
         }
         else if(event->key() == Qt::Key_Space){
             brainBThread->set_color();
+            brainBThread->set_color1();
             brainBThread->doStuff();
         }
 

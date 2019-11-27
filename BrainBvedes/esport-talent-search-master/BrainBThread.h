@@ -141,6 +141,7 @@ public:
     void run();
     void pause();
     void set_color();
+    void set_color1();
     void set_paused ( bool p );
     
     int getDelay() const {
