@@ -56,7 +56,7 @@ def main(_):
   W = tf.Variable(tf.zeros([784, 10]))
   b = tf.Variable(tf.zeros([10]))
   y = tf.matmul(x, W) + b
-
+  mylist=[]
   # Define loss and optimizer
   y_ = tf.placeholder(tf.float32, [None, 10])
 
@@ -81,6 +81,7 @@ def main(_):
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
     if i % 100 == 0:
       print(i/10, "%")
+      
   print("----------------------------------------------------------")
 
   # Test trained model

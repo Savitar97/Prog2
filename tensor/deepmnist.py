@@ -125,6 +125,8 @@ def main(_):
   # Build the graph for the deep net
   y_conv, keep_prob = deepnn(x)
 
+  mylist=[]
+  ilist=[]
   with tf.name_scope('loss'):
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y_,
                                                             logits=y_conv)
@@ -147,10 +149,17 @@ def main(_):
     sess.run(tf.global_variables_initializer())
     for i in range(20000):
       batch = mnist.train.next_batch(50)
-      if i % 100 == 0:
-        train_accuracy = accuracy.eval(feed_dict={
+      train_accuracy = accuracy.eval(feed_dict={
             x: batch[0], y_: batch[1], keep_prob: 1.0})
-        print('step %d, training accuracy %g' % (i, train_accuracy))
+      mylist.append(train_accuracy)
+      ilist.append(i)
+      if i % 100 == 0:
+        
+        matplotlib.pyplot.plot(ilist, mylist, color='green', linestyle='solid', linewidth = 1, 
+         marker='o', markerfacecolor='blue', markersize=3)
+        
+        matplotlib.pyplot.show()
+        print('step %d, training accuracy %g' % (ilist[i], train_accuracy))
       train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
     print('test accuracy %g' % accuracy.eval(feed_dict={
