@@ -57,6 +57,11 @@ public:
     int color;
     int agility;
     int conds {0};
+    int r = std::rand()%255;
+    int g = std::rand()%255;
+    int b = std::rand()%255;
+    cv::Scalar cCenter { r, g, b };
+    
     std::string name;
 
     Hero ( int x=0, int  y=0, int color=0, int agility=1,  std::string name ="Ifrit Entropy" ) :
@@ -334,11 +339,14 @@ public:
             cv::putText ( src, hero.name, x, cv::FONT_HERSHEY_SIMPLEX, .35, cBorderAndText, 1 );
 
             cv::Point xc ( hero.x+dispShift , hero.y+dispShift );
-
             cv::circle ( src, xc, 11, cCenter, CV_FILLED, 8, 0 );
             if(hero.name=="Ifrit Entropy")
             {
                 cv::circle ( src, xc, 11, cCenter1, CV_FILLED, 8, 0 );
+            }
+            if(hero.name=="Clone Entropy")
+            {
+                cv::circle ( src, xc, 11, hero.cCenter, CV_FILLED, 8, 0 );
             }
             cv::Mat box = src ( cv::Rect ( x, y ) );
 
