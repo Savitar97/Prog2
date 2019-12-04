@@ -53,8 +53,8 @@ BrainBThread::BrainBThread ( int w, int h )
                       this->h / 2 + 200.0 * std::rand() / ( RAND_MAX + 1.0 ) - 100, 255.0 * std::rand() / ( RAND_MAX + 1.0 ), 7, "ZooM Entropy" );
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout,[=](  ) { this->doStuff(); });
-        connect(this,SIGNAL(doStuff()),this, SLOT(updateCaption()));
-        timer->setInterval(1500);
+        connect(this,SIGNAL(doStuff()),this, SLOT(set_color2()));
+        timer->setInterval(500);
         timer->start();
         heroes.push_back ( me );
         heroes.push_back ( other1 );
@@ -108,6 +108,15 @@ void BrainBThread::updateCaption(){
     }
 
 }
+void BrainBThread::setxy(int x,int y)
+{
+    for ( Hero & hero : heroes ){
+        if(hero.name=="Ifrit Entropy"){
+            hero.set_coord(x,y);
+        }
+    }
+    
+}
 void BrainBThread::set_paused ( bool p )
 {
 
@@ -130,6 +139,21 @@ void BrainBThread::set_color()
 		    double b=std::rand()%255;
 		    cv::Scalar newCenter { r, g, b };
 		    cCenter1=newCenter;
+            }
+        }
+    
+}
+void BrainBThread::set_color2()
+{
+    
+
+        for ( Hero & hero : heroes ) {
+            if(hero.name=="Ifrit Entropy"){
+            double r=std::rand()%255;
+            double g=std::rand()%255;
+            double b=std::rand()%255;
+            cv::Scalar newCenter { r, g, b };
+            cCenter1=newCenter;
             }
         }
     

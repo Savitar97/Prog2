@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_BrainBWin_t {
-    QByteArrayData data[8];
-    char stringdata0[48];
+    QByteArrayData data[9];
+    char stringdata0[54];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,11 +38,12 @@ QT_MOC_LITERAL(3, 24, 5), // "image"
 QT_MOC_LITERAL(4, 30, 1), // "x"
 QT_MOC_LITERAL(5, 32, 1), // "y"
 QT_MOC_LITERAL(6, 34, 11), // "endAndStats"
-QT_MOC_LITERAL(7, 46, 1) // "t"
+QT_MOC_LITERAL(7, 46, 1), // "t"
+QT_MOC_LITERAL(8, 48, 5) // "ugrik"
 
     },
     "BrainBWin\0updateHeroes\0\0image\0x\0y\0"
-    "endAndStats\0t"
+    "endAndStats\0t\0ugrik"
 };
 #undef QT_MOC_LITERAL
 
@@ -52,7 +53,7 @@ static const uint qt_meta_data_BrainBWin[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,12 +61,14 @@ static const uint qt_meta_data_BrainBWin[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    3,   24,    2, 0x0a /* Public */,
-       6,    1,   31,    2, 0x0a /* Public */,
+       1,    3,   29,    2, 0x0a /* Public */,
+       6,    1,   36,    2, 0x0a /* Public */,
+       8,    0,   39,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QImage, QMetaType::Int, QMetaType::Int,    3,    4,    5,
     QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -78,6 +81,7 @@ void BrainBWin::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->updateHeroes((*reinterpret_cast< const QImage(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
         case 1: _t->endAndStats((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 2: _t->ugrik(); break;
         default: ;
         }
     }
@@ -112,13 +116,13 @@ int BrainBWin::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

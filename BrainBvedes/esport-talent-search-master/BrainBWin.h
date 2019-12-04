@@ -41,6 +41,7 @@
 #include <QDir>
 #include <QDateTime>
 #include "BrainBThread.h"
+#include <ctime>
 
 enum playerstate {
     lost,
@@ -60,15 +61,15 @@ class BrainBWin : public QMainWindow
     int yshift {50};
     int nofLost {0};
     int nofFound {0};
-
+    int counter{0};
     int xs, ys;
-
+    bool kapcsolo{false};
     bool firstLost {false};
     bool start {false};
     playerstate state = lost;
     std::vector<int> lost2found;
     std::vector<int> found2lost;
-
+    QTimer *timer = new QTimer(this);
     QString statDir;
 
 public:
@@ -220,6 +221,8 @@ public slots :
     void updateHeroes ( const QImage &image, const int &x, const int &y );
     //void stats ( const int &t );
     void endAndStats ( const int &t );
+
+    void ugrik();
     
 
 };

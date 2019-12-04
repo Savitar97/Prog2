@@ -91,6 +91,12 @@ public:
         }
     }
 
+    void set_coord(int maxx,int maxy)
+    {
+        x=maxx;
+        y=maxy;
+    }
+
 
 };
 
@@ -385,8 +391,11 @@ signals:
     void heroesChanged ( const QImage &image, const int &x, const int &y );
     void endAndStats ( const int &t );
     void doStuff();
+    void doStuff2();
 public slots:
 void updateCaption();
+void set_color2();
+void setxy(int x,int y);
 
 };
 

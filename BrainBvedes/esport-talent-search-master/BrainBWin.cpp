@@ -47,7 +47,17 @@ BrainBWin::BrainBWin ( int w, int h, QWidget *parent ) : QMainWindow ( parent )
         connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
                   this, SLOT ( endAndStats ( int ) ) );
         
+        
+        connect(timer, &QTimer::timeout,[=](  ) { brainBThread->doStuff2(); });
+        connect(brainBThread,SIGNAL(doStuff2()),this, SLOT(ugrik()));
+        
+        
 
+}
+
+void BrainBWin::ugrik()
+{
+    brainBThread->updateCaption();
 }
 
 void BrainBWin::endAndStats ( const int &t )
@@ -69,6 +79,7 @@ void BrainBWin::updateHeroes ( const QImage &image, const int &x, const int &y )
                 int dist = ( this->mouse_x - x ) * ( this->mouse_x - x ) + ( this->mouse_y - y ) * ( this->mouse_y - y );
 
                 if ( dist > 121 ) {
+                        
                         ++nofLost;
                         nofFound = 0;
                         if ( nofLost > 12 ) {
@@ -88,6 +99,10 @@ void BrainBWin::updateHeroes ( const QImage &image, const int &x, const int &y )
                                 brainBThread->decComp();
                         }
                 } else {
+                        if(kapcsolo==false){
+                        timer->setInterval(500);
+                        timer->start();
+                        }
                         ++nofFound;
                         nofLost = 0;
                         if ( nofFound > 12 ) {
@@ -136,12 +151,13 @@ void BrainBWin::paintEvent ( QPaintEvent * )
         int bps = brainBThread->get_bps();
         QString bpsstr = QString::number ( bps ) + " bps";
         qpainter.drawText ( 110, 40, bpsstr );
-
         if ( brainBThread->get_paused() ) {
                 QString pausedstr = "PAUSED (" + QString::number ( brainBThread->get_nofPaused() ) + ")";
 
                 qpainter.drawText ( 210, 40, pausedstr );
         }
+        QString help="Segítségek száma:"+QString::number(counter);
+        qpainter.drawText(400,40,help);
 
         qpainter.end();
 }
@@ -150,6 +166,17 @@ void BrainBWin::mousePressEvent ( QMouseEvent *event )
 {
 
         brainBThread->set_paused ( false );
+        if(event->button() == Qt::RightButton)
+        {
+            if (kapcsolo==true)
+            {
+                counter++;
+                timer->stop();
+                timer->setInterval(1000);
+                timer->start();
+                brainBThread->setxy(mouse_x,mouse_y);
+            }
+        }
 
 }
 
@@ -201,6 +228,18 @@ void BrainBWin::keyPressEvent ( QKeyEvent *event )
         else if(event->key() == Qt::Key_Space){
             brainBThread->set_color();
             brainBThread->doStuff();
+        }
+        else if (event->key() == Qt::Key_X)
+        {
+            if (kapcsolo!=true)
+            {
+                kapcsolo=true;
+            }
+            else
+            {
+                kapcsolo=false;
+            }
+            takepicture(brainBThread->getT());
         }
 
 
