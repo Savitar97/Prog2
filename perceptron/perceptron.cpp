@@ -9,7 +9,7 @@ int main (int argc, char **argv)
    
    int size = kep.get_height()*kep.get_width();
    
-   Perceptron* p = new Perceptron(5, size, 256, size);
+   Perceptron* p = new Perceptron(3, size, 256, size);
    
    double* image = new double[size+1];
    
@@ -22,7 +22,7 @@ int main (int argc, char **argv)
 
     for(int i = 0; i < kep.get_width(); ++i)
 	for(int j = 0; j<  kep.get_height(); ++j){
-	kep[i][j].blue = value[i*kep.get_height()+j];
+	kep[i][j].green = value[i*kep.get_height()+j];
 	}
 	kep.write("visszakep.png");
    

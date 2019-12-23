@@ -1,34 +1,6 @@
 #ifndef BrainBThread_H
 #define BrainBThread_H
 
-/**
- * @brief Benchmarking Cognitive Abilities of the Brain with Computer Games
- *
- * @file BrainBThread.h
- * @author  Norbert Bátfai <nbatfai@gmail.com>
- * @version 6.0.1
- *
- * @section LICENSE
- *
- * Copyright (C) 2017, 2018 Norbert Bátfai, nbatfai@gmail.com
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @section DESCRIPTION
- *
- */
-
 #include <QThread>
 #include <QSize>
 #include <QImage>
@@ -57,9 +29,9 @@ public:
     int color;
     int agility;
     int conds {0};
-    int r = std::rand()%255;
-    int g = std::rand()%255;
-    int b = std::rand()%255;
+    double r = std::rand()%255;
+    double g = std::rand()%255;
+    double b = std::rand()%255;
     cv::Scalar cCenter { r, g, b };
     
     std::string name;
@@ -110,20 +82,10 @@ class BrainBThread : public QThread
     Q_OBJECT
 
     
-     //Norbi
+    
     cv::Scalar cBg { 247, 223, 208 };
     cv::Scalar cBorderAndText { 47, 8, 4 };
-    cv::Scalar cCenter { 170, 18, 1 };
     cv::Scalar cBoxes { 10, 235, 252 };
-    cv::Scalar cCenter1 { 170, 18, 1 };
-
-    /*
-    //Matyi
-    cv::Scalar cBg { 86, 26, 228 };
-    cv::Scalar cBorderAndText { 14, 177, 232 };
-    cv::Scalar cCenter { 232, 14, 103 };
-    cv::Scalar cBoxes { 14, 232, 195 };
-*/
     
     Heroes heroes;
     int heroRectSize {40};
@@ -339,15 +301,9 @@ public:
             cv::putText ( src, hero.name, x, cv::FONT_HERSHEY_SIMPLEX, .35, cBorderAndText, 1 );
 
             cv::Point xc ( hero.x+dispShift , hero.y+dispShift );
-            cv::circle ( src, xc, 11, cCenter, CV_FILLED, 8, 0 );
-            if(hero.name=="Ifrit Entropy")
-            {
-                cv::circle ( src, xc, 11, cCenter1, CV_FILLED, 8, 0 );
-            }
-            if(hero.name=="Clone Entropy")
-            {
-                cv::circle ( src, xc, 11, hero.cCenter, CV_FILLED, 8, 0 );
-            }
+            
+            cv::circle ( src, xc, 11, hero.cCenter, CV_FILLED, 8, 0 );
+
             cv::Mat box = src ( cv::Rect ( x, y ) );
 
             cv::Mat cbox ( 2*heroRectSize, 2*heroRectSize, CV_8UC3, cBoxes );
